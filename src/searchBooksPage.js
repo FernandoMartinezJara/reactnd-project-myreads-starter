@@ -52,8 +52,10 @@ class SearchBooksPage extends React.Component {
             <div className="search-books-results">
               <ol className="books-grid">
                 { books.length > 0 ? (
-                  books.map((book, i) => (
-                    <Book book={ book } key={ i }/>
+                  books.map((book) => (
+
+                    <Book book={ book } key={ book.id } updateBook={ this.props.updateBook }/>
+                    
                   ))) : null
                 }
               </ol>

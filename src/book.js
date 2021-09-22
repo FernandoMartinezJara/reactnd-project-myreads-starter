@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Book = ({ book }) => {
+const Book = ({ book, updateBook }) => {
 
-    const { title, authors, imageLinks } = book;
+    const onSelect = (e) => {
+        e.preventDefault();
+        updateBook(book, e.target.value)
+    }
+
+    const {title, authors, imageLinks } = book;
     let image;
     
     if(imageLinks && imageLinks.thumbnail){
@@ -17,12 +22,12 @@ const Book = ({ book }) => {
             <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: url }}></div>
                 <div className="book-shelf-changer">
-                <select>
+                <select onChange={ (e) => onSelect(e)}>
                     <option value="move" disabled>Move to...</option>
+                    <option value="none">None</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>
-                    <option value="none">None</option>
                 </select>
                 </div>
             </div>

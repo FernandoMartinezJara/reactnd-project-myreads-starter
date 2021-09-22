@@ -1,25 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
 import Book from "./book";
 
-class ListBooksPage extends React.Component {
-
-    state = {
-        books: []
-    }
-    
-    componentDidMount() {
-        BooksAPI.getAll()
-        .then(books => (
-            this.setState({
-                books
-            })
-        ));
-    }
+class ListBooksPage extends Component {
 
     render(){
-        const { books } = this.state;
 
         return(
             <div className="list-books">
@@ -33,9 +18,9 @@ class ListBooksPage extends React.Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    books.filter(x => x.shelf === 'currentlyReading')
-                                    .map((book, i) => (
-                                        <Book book={ book } key={ i }/>
+                                    this.props.books.filter(x => x.shelf === 'currentlyReading')
+                                    .map((book) => (
+                                        <Book book={ book } key={ book.id } updateBook={ this.props.updateBook }/>
                                     ))
                                 }
                             </ol>
@@ -46,9 +31,9 @@ class ListBooksPage extends React.Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    books.filter(x => x.shelf === 'wantToRead')
-                                    .map((book, i) => (
-                                        <Book book={ book } key={ i }/>
+                                    this.props.books.filter(x => x.shelf === 'wantToRead')
+                                    .map((book) => (
+                                        <Book book={ book } key={ book.id } updateBook={ this.props.updateBook }/>
                                     ))
                                 }
                             </ol>
@@ -59,9 +44,9 @@ class ListBooksPage extends React.Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    books.filter(x => x.shelf === 'read')
-                                    .map((book, i) => (
-                                        <Book book={ book } key={ i }/>
+                                    this.props.books.filter(x => x.shelf === 'read')
+                                    .map((book) => (
+                                        <Book book={ book } key={ book.id} updateBook={ this.props.updateBook }/>
                                     ))
                                 }
                             </ol>
