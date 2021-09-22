@@ -11,11 +11,7 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentDidMount() {
-      this.getBooks();
-  }
-
-  getBooks() {
+  getBooks = () => {
     BooksAPI.getAll()
     .then(books => (
         this.setState({
@@ -34,25 +30,53 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateQuery = (query) => {
+
+    if(query.length === 0){
+      this.clearQuery();
+      return;
+    }
+
+    BooksAPI.search(query)
+    .then(books => {
+        this.setState(() => ({
+          books
+        }))
+      });
+  }
+
+  clearQuery = () => {
+    this.setState(() => ({
+      books: []
+    }))
+  }
+
   render() {
-    
+
     const { books } = this.state;
 
     return (
       <div className="app">
 
         <Route exact path='/' render={ () => ( 
-          <ListBooksPage books= { books } updateBook={ (book, shelf) => {
-            this.updateBook(book, shelf);
-          }}/>  
+          <ListBooksPage 
+            books= { books }
+            getBooks = { this.getBooks }
+            updateBook={ (book, shelf) => {
+              this.updateBook(book, shelf);
+            }}
+          />  
         )} />
 
         <Route path='/search' render={ ({ history }) => ( 
-          <SearchBooksPage updateBook={ (book, shelf) => {
-            this.updateBook(book, shelf);
-            history.push('/');
-
-          }}/>  
+          <SearchBooksPage
+            books= { books }
+            updateQuery = { (q) => { this.updateQuery(q) } }
+            updateBook={ (book, shelf) => {
+              this.updateBook(book, shelf);
+              history.push('/');
+            }}
+          />  
         )} />
 
       </div>

@@ -4,6 +4,10 @@ import Book from "./book";
 
 class ListBooksPage extends Component {
 
+    componentDidMount() {
+        this.props.getBooks();
+    }
+  
     render(){
 
         return(
