@@ -1,11 +1,16 @@
 import React from 'react';
 
+/**
+* @description Represents a book component
+* @props {book} book - book's object to display
+* @props {function} updateBook - function to change shelf
+*/
 const Book = ({ book, updateBook }) => {
 
     const onSelect = (e) => {
         e.preventDefault();
         updateBook(book, e.target.value)
-    }
+    };
 
     const {title, authors, imageLinks } = book;
     let image;
@@ -20,7 +25,7 @@ const Book = ({ book, updateBook }) => {
     return(
         <div className="book">
             <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: url }}></div>
+                <img className="book-cover" style={{ width: 128, height: 193, backgroundImage: url }} alt=""/>
                 <div className="book-shelf-changer">
                 <select onChange={ (e) => onSelect(e)}>
                     <option value="move" disabled>Move to...</option>

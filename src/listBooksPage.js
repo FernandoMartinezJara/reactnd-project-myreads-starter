@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import Book from "./book";
 
+/**
+* @description Represents a list of books
+* @props {books} books - books objects to display
+* @props {function} updateBook - function to change shelf
+*/
 class ListBooksPage extends Component {
 
     componentDidMount() {
@@ -9,6 +14,8 @@ class ListBooksPage extends Component {
     }
   
     render(){
+
+        const { books, updateBook } = this.props;
 
         return(
             <div className="list-books">
@@ -22,9 +29,13 @@ class ListBooksPage extends Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    this.props.books.filter(x => x.shelf === 'currentlyReading')
+                                    books.filter(x => x.shelf === 'currentlyReading')
                                     .map((book) => (
-                                        <Book book={ book } key={ book.id } updateBook={ this.props.updateBook }/>
+                                        <Book 
+                                            book={ book } 
+                                            key={ book.id } 
+                                            updateBook={ updateBook }
+                                        />
                                     ))
                                 }
                             </ol>
@@ -35,9 +46,13 @@ class ListBooksPage extends Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    this.props.books.filter(x => x.shelf === 'wantToRead')
+                                    books.filter(x => x.shelf === 'wantToRead')
                                     .map((book) => (
-                                        <Book book={ book } key={ book.id } updateBook={ this.props.updateBook }/>
+                                        <Book 
+                                            book={ book } 
+                                            key={ book.id } 
+                                            updateBook={ updateBook }
+                                        />
                                     ))
                                 }
                             </ol>
@@ -48,9 +63,13 @@ class ListBooksPage extends Component {
                         <div className="bookshelf-books">
                             <ol className="books-grid">
                                 {
-                                    this.props.books.filter(x => x.shelf === 'read')
+                                    books.filter(x => x.shelf === 'read')
                                     .map((book) => (
-                                        <Book book={ book } key={ book.id} updateBook={ this.props.updateBook }/>
+                                        <Book 
+                                            book={ book } 
+                                            key={ book.id} 
+                                            updateBook={ updateBook }
+                                        />
                                     ))
                                 }
                             </ol>
@@ -67,11 +86,8 @@ class ListBooksPage extends Component {
                     </Link>
                 </div>
           </div>
-        
         )
-        
     }
 }
-
 
 export default ListBooksPage

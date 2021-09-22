@@ -1,16 +1,22 @@
-import React from 'react';
-import * as BooksAPI from './BooksAPI'
+import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI';
 import './App.css';
 import ListBooksPage from './listBooksPage';
 import SearchBooksPage from './searchBooksPage';
 import { Route } from 'react-router-dom';
 
-class BooksApp extends React.Component {
+/**
+* @description Represents a root component who`s manage the global state
+*/
+class BooksApp extends Component {
 
   state = {
     books: []
   }
 
+  /**
+  * @description get the books from api and set to state
+  */
   getBooks = () => {
     BooksAPI.getAll()
     .then(books => (
@@ -20,6 +26,11 @@ class BooksApp extends React.Component {
     ));
   }
 
+  /**
+  * @description update a book´s shelf
+  * @params {book} _book - books to update shelf
+  * @params {string} shelf - shelf to set a book
+  */
   updateBook = (_book, shelf) => {
     BooksAPI.update(_book, shelf)
     .then(() => { 
@@ -30,6 +41,10 @@ class BooksApp extends React.Component {
     })
   }
 
+  /**
+  * @description search books on api and set to state
+  * @params {string} query - criteria to search on api
+  */
   updateQuery = (query) => {
 
     if(query.length === 0){
@@ -45,6 +60,9 @@ class BooksApp extends React.Component {
       });
   }
 
+  /**
+  * @description clear the state of books
+  */
   clearQuery = () => {
     this.setState(() => ({
       books: []
