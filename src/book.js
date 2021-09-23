@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
 * @description Represents a book component
@@ -40,6 +41,11 @@ const Book = ({ book, updateBook }) => {
             <div className="book-authors">{ authors }</div>
         </div>
     )
+}
+
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    updateBook: PropTypes.func.isRequired 
 }
 
 export default Book
