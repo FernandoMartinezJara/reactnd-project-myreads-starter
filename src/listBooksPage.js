@@ -10,6 +10,7 @@ import BooksByShelf from "./booksByShelf";
 class ListBooksPage extends Component {
 
     componentDidMount() {
+        this.props.clearQuery();
         this.props.getBooks();
     }
   

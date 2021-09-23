@@ -98,6 +98,7 @@ class BooksApp extends Component {
             <ListBooksPage 
               books= { books }
               getBooks = { this.getBooks }
+              clearQuery= { this.clearQuery }
               updateBook={ (book, shelf) => {
                 this.updateBook(book, shelf);
               }}
