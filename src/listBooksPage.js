@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import Book from "./book";
+import BooksByShelf from "./booksByShelf";
 
 /**
 * @description Represents a list of books
@@ -16,6 +16,7 @@ class ListBooksPage extends Component {
     render(){
 
         const { books, updateBook } = this.props;
+        const shelfs = ['Currently Reading', 'Want to Read' , 'Read'];
 
         return(
             <div className="list-books">
@@ -24,57 +25,17 @@ class ListBooksPage extends Component {
                 </div>
                 <div className="list-books-content">    
                     <div>
-                        <div className="bookshelf">
-                        <h2 className="bookshelf-title">Currently Reading</h2>
-                        <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {
-                                    books.filter(x => x.shelf === 'currentlyReading')
-                                    .map((book) => (
-                                        <Book 
-                                            book={ book } 
-                                            key={ book.id } 
-                                            updateBook={ updateBook }
-                                        />
-                                    ))
-                                }
-                            </ol>
-                        </div>
-                        </div>
-                        <div className="bookshelf">
-                        <h2 className="bookshelf-title">Want to Read</h2>
-                        <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {
-                                    books.filter(x => x.shelf === 'wantToRead')
-                                    .map((book) => (
-                                        <Book 
-                                            book={ book } 
-                                            key={ book.id } 
-                                            updateBook={ updateBook }
-                                        />
-                                    ))
-                                }
-                            </ol>
-                        </div>
-                        </div>
-                        <div className="bookshelf">
-                        <h2 className="bookshelf-title">Read</h2>
-                        <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {
-                                    books.filter(x => x.shelf === 'read')
-                                    .map((book) => (
-                                        <Book 
-                                            book={ book } 
-                                            key={ book.id} 
-                                            updateBook={ updateBook }
-                                        />
-                                    ))
-                                }
-                            </ol>
-                        </div>
-                        </div>
+                        {
+                            shelfs.map(_shelf =>  (
+                                <BooksByShelf
+                                    key={ _shelf } 
+                                    shelf={ _shelf }
+                                    books={ books } 
+                                    updateBook={ updateBook }
+                                />
+                                )
+                            )
+                        }
                     </div>
                 </div>
 
