@@ -49,36 +49,40 @@ class BooksApp extends Component {
   */
   updateQuery = (query) => {
 
-    if(query.length === 0){
+    if(query === ''){
       this.clearQuery();
-      return;
     }
+    else{
 
-    BooksAPI.search(query)
-    .then(searchBooks => {
+      BooksAPI.search(query)
+      .then(searchBooks => {
+  
+        if(searchBooks.length > 0){
+          searchBooks.map(searchBook => {
+            const bookToShelf = this.state.books.find(b => b.id === searchBook.id);
+  
+            if(bookToShelf){
+              searchBook.shelf = bookToShelf.shelf;
+            }
+            
+            return searchBook;
+          });
+        }
 
-        searchBooks.map(searchBook => {
-          const bookToShelf = this.state.books.find(b => b.id === searchBook.id);
-
-          if(bookToShelf){
-            searchBook.shelf = bookToShelf.shelf;
-          }
-          
-          return searchBook;
-        });
-
-        this.setState(() => ({
-          searchBooks
-        }))
-      });
+          this.setState(() => ({
+            searchBooks
+          }))
+        });    
+      }
   }
 
   /**
   * @description clear the state of books
   */
   clearQuery = () => {
-    this.setState(() => ({
-      books: []
+    this.setState((currentState) => ({
+      books: currentState.books,
+      searchBooks: []
     }))
   }
 
