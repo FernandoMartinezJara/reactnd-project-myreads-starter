@@ -77,6 +77,7 @@ class BooksApp extends Component {
     return (
       <div className="app">
         <Switch>
+
           <Route exact path='/' render={ () => ( 
             <ListBooksPage 
               books= { books }
@@ -98,9 +99,7 @@ class BooksApp extends Component {
             />  
           )} />
 
-          <Route>
-            <NotFoundPage />
-          </Route>
+          <Route component={ NotFoundPage } />
 
         </Switch>
 
