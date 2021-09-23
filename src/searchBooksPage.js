@@ -1,6 +1,7 @@
 import React from 'react';
 import Book from './book';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 /**
 * @description Represents a search of books component
@@ -40,6 +41,12 @@ const SearchBooksPage = ( { books, updateQuery, updateBook }) => {
     </div>
   )
     
+}
+
+SearchBooksPage.propTypes = {
+  books: PropTypes.array.isRequired, 
+  updateQuery: PropTypes.func.isRequired, 
+  updateBook: PropTypes.func.isRequired
 }
 
 export default SearchBooksPage
