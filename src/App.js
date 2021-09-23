@@ -3,7 +3,8 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import ListBooksPage from './listBooksPage';
 import SearchBooksPage from './searchBooksPage';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import NotFoundPage from './notFoundPage';
 
 /**
 * @description Represents a root component who`s manage the global state
@@ -75,27 +76,33 @@ class BooksApp extends Component {
 
     return (
       <div className="app">
+        <Switch>
+          <Route exact path='/' render={ () => ( 
+            <ListBooksPage 
+              books= { books }
+              getBooks = { this.getBooks }
+              updateBook={ (book, shelf) => {
+                this.updateBook(book, shelf);
+              }}
+            />  
+          )} />
 
-        <Route exact path='/' render={ () => ( 
-          <ListBooksPage 
-            books= { books }
-            getBooks = { this.getBooks }
-            updateBook={ (book, shelf) => {
-              this.updateBook(book, shelf);
-            }}
-          />  
-        )} />
+          <Route path='/search' render={ ({ history }) => ( 
+            <SearchBooksPage
+              books= { books }
+              updateQuery = { (q) => { this.updateQuery(q) } }
+              updateBook={ (book, shelf) => {
+                this.updateBook(book, shelf);
+                history.push('/');
+              }}
+            />  
+          )} />
 
-        <Route path='/search' render={ ({ history }) => ( 
-          <SearchBooksPage
-            books= { books }
-            updateQuery = { (q) => { this.updateQuery(q) } }
-            updateBook={ (book, shelf) => {
-              this.updateBook(book, shelf);
-              history.push('/');
-            }}
-          />  
-        )} />
+          <Route>
+            <NotFoundPage />
+          </Route>
+
+        </Switch>
 
       </div>
     )
