@@ -12,7 +12,8 @@ import NotFoundPage from './notFoundPage';
 class BooksApp extends Component {
 
   state = {
-    books: []
+    books: [],
+    searchBooks: []
   }
 
   /**
@@ -54,9 +55,20 @@ class BooksApp extends Component {
     }
 
     BooksAPI.search(query)
-    .then(books => {
+    .then(searchBooks => {
+
+        searchBooks.map(searchBook => {
+          const bookToShelf = this.state.books.find(b => b.id === searchBook.id);
+
+          if(bookToShelf){
+            searchBook.shelf = bookToShelf.shelf;
+          }
+          
+          return searchBook;
+        });
+
         this.setState(() => ({
-          books
+          searchBooks
         }))
       });
   }
@@ -72,7 +84,7 @@ class BooksApp extends Component {
 
   render() {
 
-    const { books } = this.state;
+    const { books, searchBooks } = this.state;
 
     return (
       <div className="app">
@@ -90,7 +102,7 @@ class BooksApp extends Component {
 
           <Route path='/search' render={ ({ history }) => ( 
             <SearchBooksPage
-              books= { books }
+              books= { searchBooks }
               updateQuery = { (q) => { this.updateQuery(q) } }
               updateBook={ (book, shelf) => {
                 this.updateBook(book, shelf);
