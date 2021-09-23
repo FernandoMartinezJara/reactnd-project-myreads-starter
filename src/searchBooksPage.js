@@ -40,12 +40,11 @@ const SearchBooksPage = ( { books, updateQuery, updateBook }) => {
       </div>
     </div>
   )
-    
 }
 
 SearchBooksPage.propTypes = {
-  books: PropTypes.array.isRequired, 
-  updateQuery: PropTypes.func.isRequired, 
+  books: PropTypes.any.isRequired,
+  updateQuery: PropTypes.func.isRequired,
   updateBook: PropTypes.func.isRequired
 }
 
