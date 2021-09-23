@@ -8,7 +8,7 @@ The topics covered in this project are:
 - Functional Component
 - PropTypes validation
 - Pass props to children component
-- Application´s global
+- Application´s global state
 - React Router
 - React lifecycle methods
 - Javascript, Html & Git good practices
