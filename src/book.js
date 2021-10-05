@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { shelfs, getShelfValue } from './shelfs';
 
 /**
 * @description Represents a book component
@@ -15,7 +16,7 @@ const Book = ({ book, updateBook }) => {
 
     const {title, authors, imageLinks } = book;
     let image;
-    
+
     if(imageLinks && imageLinks.thumbnail){
         image = imageLinks.thumbnail;
     }else if(imageLinks && imageLinks.smallThumbnail){
@@ -28,12 +29,19 @@ const Book = ({ book, updateBook }) => {
             <div className="book-top">
                 <img className="book-cover" style={{ width: 128, height: 193, backgroundImage: url }} alt=""/>
                 <div className="book-shelf-changer">
-                <select onChange={ (e) => onSelect(e)}>
+                <select onChange={ (e) => onSelect(e)} value={ book.shelf }>
                     <option value="move" disabled>Move to...</option>
                     <option value="none">None</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
+                    {
+                        shelfs.map( shelf => (
+                            <option 
+                                key={ shelf } 
+                                value={ getShelfValue(shelf) }>
+                                    { shelf }
+                            </option>
+                        ))
+                    }
+                    <option defaultValue value="one">one</option>
                 </select>
                 </div>
             </div>

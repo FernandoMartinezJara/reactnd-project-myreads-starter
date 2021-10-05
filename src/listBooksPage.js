@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import BooksByShelf from "./booksByShelf";
+import  { shelfs } from './shelfs';
 
 /**
 * @description Represents a list of books
@@ -17,8 +18,7 @@ class ListBooksPage extends Component {
     render(){
 
         const { books, updateBook } = this.props;
-        const shelfs = ['Currently Reading', 'Want to Read' , 'Read'];
-
+    
         return(
             <div className="list-books">
                 <div className="list-books-title">

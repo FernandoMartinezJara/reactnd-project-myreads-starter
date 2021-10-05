@@ -1,6 +1,7 @@
 import React from 'react';
 import Book from './book';
 import PropTypes from 'prop-types';
+import { getShelfValue } from './shelfs';
 
 /**
 * @description Represents a list of books filtered by his shelf
@@ -10,14 +11,7 @@ import PropTypes from 'prop-types';
 */
 const BooksByShelf = ({ shelf, books, updateBook }) => {
     
-    let _shelf;
-
-    switch(shelf){
-        case 'Currently Reading': _shelf = "currentlyReading"; break;
-        case 'Want to Read': _shelf = "wantToRead"; break;
-        case 'Read': _shelf = "read"; break;
-        default:  _shelf = ""
-    }
+    let _shelf = getShelfValue(shelf);
 
     return (
         <div className="bookshelf">
